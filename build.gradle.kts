@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
+    kotlin("plugin.jpa") version "1.6.21"
 }
 
 group = "ua.wwind"
@@ -16,10 +17,26 @@ repositories {
 }
 
 dependencies {
+    // Actuator
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+    // WEB
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // JPA
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // Thymeleaf
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+    // Kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    // DB
+    runtimeOnly("com.h2database:h2")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
