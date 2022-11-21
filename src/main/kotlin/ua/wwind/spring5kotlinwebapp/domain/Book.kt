@@ -7,6 +7,7 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 
 @Entity
 data class Book(
@@ -20,10 +21,13 @@ data class Book(
         name = "author_book", joinColumns = [JoinColumn(name = "book_id")],
         inverseJoinColumns = [JoinColumn(name = "author_id")]
     )
-    val authors: MutableSet<Author> = mutableSetOf()
+    val authors: MutableSet<Author> = mutableSetOf(),
+    @ManyToOne
+    val publisher: Publisher
 ) {
     override fun toString(): String {
-        return "Book(id=$id, title='$title', isbn='$isbn', authors=${authors.map { it.id to "${it.firstName} ${it.lastName}" }})"
+        return "Book(id=$id, title='$title', isbn='$isbn', authors=${authors.map { it.id to "${it.firstName} ${it.lastName}" }}, " +
+                "publisher='${publisher.id to publisher.name}')"
     }
 
     override fun equals(other: Any?): Boolean {
